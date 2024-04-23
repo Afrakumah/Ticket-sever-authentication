@@ -45,7 +45,6 @@ export const swaggerOptions = {
           description: "this specifies getting all users",
           tags: ["Users"],
 
-         
           responses: {
             200: {
               description: "Successful operation",
@@ -53,26 +52,24 @@ export const swaggerOptions = {
                 "application/json": {
                   schema: {
                     type: "array",
-                     items: { $ref: "#/components/schemas/User" },
+                    items: { $ref: "#/components/schemas/User" },
                     // items: {
                     //   type: "object",
                     // },
                   },
 
-                  '401': {
-                    'description': 'Unauthorized access'
-                  }
+                  401: {
+                    description: "Unauthorized access",
+                  },
                 },
               },
             },
           },
         },
 
-        'post': {
-            'tags': [
-                'Users'
-            ],
-            summary: "signup a user",
+        post: {
+          tags: ["Users"],
+          summary: "signup a user",
           description: "register a user",
           requestBody: {
             description: "Provide email and password",
@@ -91,20 +88,20 @@ export const swaggerOptions = {
                 "application/json": {
                   schema: {
                     type: "object",
-                   
+
                     // items: {
                     //   type: "object",
                     // },
                   },
 
-                  '409': {
-                    'description': 'user already exist'
-                  }
+                  409: {
+                    description: "user already exist",
+                  },
                 },
               },
             },
           },
-        }
+        },
       },
 
       "/users/login": {
@@ -129,15 +126,15 @@ export const swaggerOptions = {
                 "application/json": {
                   schema: {
                     type: "array",
-                     //items: { $ref: "#/components/schemas/User" },
+                    //items: { $ref: "#/components/schemas/User" },
                     items: {
                       type: "object",
                     },
                   },
 
-                  '401': {
-                    'description': 'Unauthorized access'
-                  }
+                  401: {
+                    description: "Unauthorized access",
+                  },
                 },
               },
             },
@@ -146,132 +143,123 @@ export const swaggerOptions = {
       },
 
       "/tickets/{userId}": {
-          "post": {
-            "tags": [
-                'Tickets'
-            ],
-            'summary': 'Add a ticket',
-            'description': 'Add a ticket to a specific user',
-            'operationId': 'addTicket',
-            'parameters': [
-                {
+        post: {
+          tags: ["Tickets"],
+          summary: "Add a ticket",
+          description: "Add a ticket to a specific user",
+          operationId: "addTicket",
+          parameters: [
+            {
+              name: "userId",
+              in: "path",
+              description: "The user to add ticket by id.",
+              required: true,
+              schema: {
+                type: "string",
+                format: "ObjectId",
+              },
+            },
+          ],
+          requestBody: {
+            description: "Provide details for adding a ticket",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Ticket",
+                },
+              },
+            },
+          },
+          responses: {
+            201: {
+              //description: "Successful operation",
+              content: {
+                "application/json": {
+                  schema: {
+                    type: "object",
+                    //items: { $ref: "#/components/schemas/User" },
+                    // items: {
+                    //   type: "object",
+                    // },
+                  },
 
-                    'name': 'userId',
-                    'in': 'path',
-                    'description': 'The user to add ticket by id.',
-                    'required': true,
-                    'schema': {
-                        'type': 'string',
-                        'format': 'ObjectId'
-                    }
-                }
-            ],
-            requestBody: {
-                description: "Provide details for adding a ticket",
-                content: {
-                  "application/json": {
-                    schema: {
-                      $ref: "#/components/schemas/Ticket",
-                    },
+                  401: {
+                    description: "Unauthorized access",
                   },
                 },
               },
-            responses: {
-                201: {
-                  //description: "Successful operation",
-                  content: {
-                    "application/json": {
-                      schema: {
-                        type: "object",
-                         //items: { $ref: "#/components/schemas/User" },
-                        // items: {
-                        //   type: "object",
-                        // },
-                      },
-    
-                      '401': {
-                        'description': 'Unauthorized access'
-                      }
-                    },
-                  },
-                },
-              },
-          }
+            },
+          },
+        },
       },
 
       "/tickets": {
-        "get": {
-            "tags": [
-                'Tickets'
-            ],
-            'summary': 'Get all tickets',
-            'description': 'Get all tickets in the db',
-           
-            responses: {
-                200: {
-                  //description: "Operation successful",
-                  content: {
-                    "application/json": {
-                      schema: {
-                        type: "array",
-                        items: {
-                          type: "object",
-                        },
-                      },
-    
-                      '401': {
-                        'description': 'Unauthorized access'
-                      }
+        get: {
+          tags: ["Tickets"],
+          summary: "Get all tickets",
+          description: "Get all tickets in the db",
+
+          responses: {
+            200: {
+              //description: "Operation successful",
+              content: {
+                "application/json": {
+                  schema: {
+                    type: "array",
+                    items: {
+                      type: "object",
                     },
+                  },
+
+                  401: {
+                    description: "Unauthorized access",
                   },
                 },
               },
-          }
+            },
+          },
+        },
       },
 
       "/tickets/{id}": {
-        "delete": {
-            "tags": [
-                'Tickets'
-            ],
-            'summary': 'Delete a ticket by id',
-            'description': 'Delete a ticket',
-            'operationId': 'deleteTicket',
-            'parameters': [
-                {
+        delete: {
+          tags: ["Tickets"],
+          summary: "Delete a ticket by id",
+          description: "Delete a ticket",
+          operationId: "deleteTicket",
+          parameters: [
+            {
+              name: "id",
+              in: "path",
+              description: "The ticketId to delete a ticket.",
+              required: true,
+              schema: {
+                type: "string",
+                format: "ObjectId",
+              },
+            },
+          ],
 
-                    'name': 'id',
-                    'in': 'path',
-                    'description': 'The ticketId to delete a ticket.',
-                    'required': true,
-                    'schema': {
-                        'type': 'string',
-                        'format': 'ObjectId'
-                    }
-                }
-            ],
-           
-            responses: {
-                200: {
-                  description: "Operation successful",
-                  content: {
-                    "application/json": {
-                      schema: {
-                        type: "array",
-                        items: {
-                          type: "object",
-                        },
-                      },
-    
-                    //   '401': {
-                    //     'description': 'Unauthorized access'
-                    //   }
+          responses: {
+            200: {
+              description: "Operation successful",
+              content: {
+                "application/json": {
+                  schema: {
+                    type: "array",
+                    items: {
+                      type: "object",
                     },
                   },
+
+                  //   '401': {
+                  //     'description': 'Unauthorized access'
+                  //   }
                 },
               },
-          }
-
+            },
+          },
+        },
       },
     },
 
@@ -283,13 +271,13 @@ export const swaggerOptions = {
             email: {
               type: "string",
               description: "this is the users email",
-              required: true
+              required: true,
             },
 
             password: {
               type: "string",
               description: "this is the users email",
-              required: true
+              required: true,
             },
 
             tickets: {
@@ -299,25 +287,25 @@ export const swaggerOptions = {
           },
         },
 
-        'Ticket': {
-            'type': 'object',
-            'properties': {
-                'title': {
-                    'type': 'string',
-                    'required': true
-                },
-                'desc': {
-                    'type': 'string',
-                    'required': true
-                },
-                "user": {
-                    'type': 'string',
-                    'format': 'ObjectId',
-                    'description': 'MongoDB id',
-                    'required': true
-                }
-            }
-        }
+        Ticket: {
+          type: "object",
+          properties: {
+            title: {
+              type: "string",
+              required: true,
+            },
+            desc: {
+              type: "string",
+              required: true,
+            },
+            user: {
+              type: "string",
+              format: "ObjectId",
+              description: "MongoDB id",
+              required: true,
+            },
+          },
+        },
       },
     },
   },
