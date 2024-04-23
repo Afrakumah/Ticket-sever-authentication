@@ -2,7 +2,7 @@ export const swaggerOptions = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "An api for user Auth and generating tickets",
+      title: "An api for user Authentication and generating tickets",
       version: "1.0.0",
       description:
         "this is used for api documentation this is used for api documentation this is used for api documentation this is used for api documentation this is used for api documentation this is used for api documentation this is used for api documentationthis is used for api documentation",
